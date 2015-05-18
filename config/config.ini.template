@@ -1,0 +1,31 @@
+[logger]
+debugEnabled = 0
+logDir = @LOG_DIR@
+accessLogName = kaltura_push_access.log
+logName = kaltura_push.log
+errorLogName = kaltura_push_error.log
+
+[server]
+version = v1.0
+
+[queue]
+; Comma-sperated list of queue managers
+queues = rabbit
+
+[rabbit]
+;providerType value is the exact class name
+providerType = RabbitMQProvider
+username = @USERNAME@
+password = @PASSWORD@
+server = @SERVER@
+port = 5672
+curl_port = 15672
+timeout = 43200000
+
+[socketio]
+port = @SOCKET_IO_PORT@
+
+[tokens]
+;These settings should be coordinated with your local.ini file
+key = @TOKEN_KEY@
+iv = @TOKEN_IV@
