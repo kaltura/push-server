@@ -1,21 +1,12 @@
+## push-server
 
+Kaltura 'push-server' manages all clients' web sockets in order to recieve pushed data. Basically, it's a part of a larger message-oriented middleware system, maintained by Kaltura's server (the Push Event Notification Plugin). Client can register to event (using the push plugin), and once the event occures, it will be pushed into a queue. The push-server provides lister to this queue, so that the client will receive the object directly throuth the web socket (socket io implementation) into its application.
 
-# push-server
+### Deployment
+Please refer to [deployment document] (https://github.com/kaltura/push-server/blob/master/push_server_deployment.md)
 
+### Copyright & License
 
+All code in this project is released under the [AGPLv3 license](http://www.gnu.org/licenses/agpl-3.0.html) unless a different license for a particular library is specified in the applicable library path. 
 
-## Usage
-
-
-
-## Developing
-
-
-
-### Tools
-
-Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
- ([Eclipse Marketplace](http://marketplace.eclipse.org/content/nodeclipse), [site](http://www.nodeclipse.org))   
-
-Nodeclipse is free open-source project that grows with your contributions.
-# push-server 
+Copyright © Kaltura Inc. All rights reserved.
