@@ -15,9 +15,9 @@ queues = rabbit
 [rabbit]
 ;providerType value is the exact class name
 providerType = RabbitMQProvider
-username = @USERNAME@
-password = @PASSWORD@
-server = @SERVER@
+username = @RABBIT_MQ_USERNAME@
+password = @RABBIT_MQ_PASSWORD@
+server = @RABBIT_MQ_SERVER@
 port = 5672
 curl_port = 15672
 timeout = 43200000
