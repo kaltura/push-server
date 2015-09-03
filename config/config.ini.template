@@ -10,7 +10,7 @@ version = v1.0
 
 [queue]
 ; Comma-sperated list of queue managers
-queues = rabbit
+providers = rabbit
 
 [rabbit]
 ;providerType value is the exact class name
