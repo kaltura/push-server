@@ -1,4 +1,5 @@
 var ConnectionManager = require('./lib/ConnectionManager');
+var DemoManager = require('./lib/DemoManager');
 
 require('./lib/utils/KalturaConfig');
 require('./lib/utils/KalturaLogger');
@@ -12,6 +13,9 @@ KalturaMainProcess.prototype.start = function() {
 	KalturaLogger.log('\n\n_____________________________________________________________________________________________');
 	KalturaLogger.log('Push-Server ' + version + ' started');
 	
+	if(KalturaConfig.config.demo) {
+		var demo = new DemoManager();
+	}
 	var conn = new ConnectionManager();
 };
 
