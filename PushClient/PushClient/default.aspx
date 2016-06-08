@@ -29,8 +29,8 @@
         };
 
         //var demoRegistrationBaseUrl = 'http://localhost:8082/?key=aabb&token=aaaa';
-        var demoRegistrationBaseUrl = 'http://localhost:8082/';
-        var prodBaseConncetUrl = 'http://localhost:8089/'
+        //var demoRegistrationBaseUrl = 'http://localhost:8082/';
+        //var prodBaseConncetUrl = 'http://localhost:8089/'
 
         function addMessage(message) {
             var dt = new Date();
@@ -50,7 +50,12 @@
                 return;
             }
 
-            var url = prodBaseConncetUrl + '?p=' + jQuery('#partnerId').val() + '&x=' + jQuery('#token').val();
+            if (jQuery('#pushProdBaseUrl').val().trim() == "") {
+                addMessage("Please enter push base URL")
+                return;
+            }
+
+            var url = 'http://' + jQuery('#pushProdBaseUrl').val() + '?p=' + jQuery('#partnerId').val() + '&x=' + jQuery('#token').val();
             var key = jQuery('#key').val();
 
             connect(url, key);
@@ -90,7 +95,12 @@
                 return;
             }
 
-            var url = demoRegistrationBaseUrl + '?key=' + jQuery('#demoQueue').val() + '&token=' + jQuery('#demoSecret').val();
+            if (jQuery('#demoProdBaseUrl').val().trim() == "") {
+                addMessage("Please enter demo push base URL")
+                return;
+            }
+
+            var url = 'http://' + jQuery('#demoProdBaseUrl').val() + '?key=' + jQuery('#demoQueue').val() + '&token=' + jQuery('#demoSecret').val();
 
             addMessage("Registering...");
             $.ajax({
@@ -122,7 +132,13 @@
 
 
     <form id="form2" runat="server">
+
+        
+        
+
         <h3>Demo</h3>
+        Demo Base URL:
+        <input type="text" id="demoProdBaseUrl" name="demoProdBaseUrl" value="localhost:8082"><br>
         Secret:
         <input type="text" id="demoSecret" name="demoSecret" value="aaaa"><br>
         Queue:
@@ -131,6 +147,8 @@
 
 
         <h3>Prod</h3>
+        Prod Base URL:
+        <input type="text" id="pushProdBaseUrl" name="pushProdBaseUrl" value="localhost:8089"><br>
         partnerId:
         <input type="text" id="partnerId" name="partnerId" value="203"><br>
         Token:
