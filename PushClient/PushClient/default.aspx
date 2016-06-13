@@ -9,9 +9,6 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
 
-        var tokenKey = '11111';
-        var tokenIV = '11111';
-
         // get GET parameters
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -40,22 +37,17 @@
 
         function ConnectToProd() {
 
-            if (jQuery('#partnerId').val().trim() == "") {
-                addMessage("Please enter partner ID")
+            if (jQuery('#pushProdUrl').val().trim() == "") {
+                addMessage("Please enter push URL")
                 return;
             }
 
-            if (jQuery('#token').val().trim() == "") {
-                addMessage("Please enter token")
+            if (jQuery('#key').val().trim() == "") {
+                addMessage("Please enter key")
                 return;
             }
 
-            if (jQuery('#pushProdBaseUrl').val().trim() == "") {
-                addMessage("Please enter push base URL")
-                return;
-            }
-
-            var url = 'http://' + jQuery('#pushProdBaseUrl').val() + '?p=' + jQuery('#partnerId').val() + '&x=' + jQuery('#token').val();
+            var url = jQuery('#pushProdUrl').val();
             var key = jQuery('#key').val();
 
             connect(url, key);
@@ -123,7 +115,6 @@
         }
 
         $(document).ready(function () {
-            //register(demoRegistrationUrl);
         });
 
     </script>
@@ -133,11 +124,8 @@
 
     <form id="form2" runat="server">
 
-        
-        
-
         <h3>Demo</h3>
-        Demo Base URL:
+        Base URL:
         <input type="text" id="demoProdBaseUrl" name="demoProdBaseUrl" value="localhost:8082"><br>
         Secret:
         <input type="text" id="demoSecret" name="demoSecret" value="aaaa"><br>
@@ -147,16 +135,11 @@
 
 
         <h3>Prod</h3>
-        Prod Base URL:
-        <input type="text" id="pushProdBaseUrl" name="pushProdBaseUrl" value="localhost:8089"><br>
-        partnerId:
-        <input type="text" id="partnerId" name="partnerId" value="203"><br>
-        Token:
-        <input type="text" id="token" name="Token" value=""><br>
+        URL:
+        <textarea id="pushProdUrl" name="pushProdUrl" rows="8" cols="80"></textarea><br />
         Key:
-        <input type="text" id="key" name="Key" value=""><br>
+        <textarea id="key" name="Key" rows="8" cols="80"></textarea><br />
         <input type="button" value="Connect" onclick="ConnectToProd()">
-
         <div>
             <ul id="messages"></ul>
         </div>
