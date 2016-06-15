@@ -30,6 +30,9 @@ port = @SOCKET_IO_PORT@
 key = @TOKEN_KEY@
 iv = @TOKEN_IV@
 
+[validation]
+validateIP = 1
+
 [demo]
 secret = @SECRET@
 port = @DEMO_CLIENT_PORT@

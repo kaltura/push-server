@@ -26,8 +26,6 @@
         };
 
         //var demoRegistrationBaseUrl = 'http://localhost:8082/?key=aabb&token=aaaa';
-        //var demoRegistrationBaseUrl = 'http://localhost:8082/';
-        //var prodBaseConncetUrl = 'http://localhost:8089/'
 
         function addMessage(message) {
             var dt = new Date();
@@ -126,7 +124,7 @@
 
         <h3>Demo</h3>
         Base URL:
-        <input type="text" id="demoProdBaseUrl" name="demoProdBaseUrl" value="localhost:8082"><br>
+        <input type="text" id="demoProdBaseUrl" name="demoProdBaseUrl" value=""><br>
         Secret:
         <input type="text" id="demoSecret" name="demoSecret" value="aaaa"><br>
         Queue:
