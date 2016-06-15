@@ -122,22 +122,37 @@
 
     <form id="form2" runat="server">
 
-        <h3>Demo</h3>
+        <%--        <h3>Demo</h3>
         Base URL:
         <input type="text" id="demoProdBaseUrl" name="demoProdBaseUrl" value=""><br>
         Secret:
         <input type="text" id="demoSecret" name="demoSecret" value="aaaa"><br>
         Queue:
         <input type="text" id="demoQueue" name="demoQueue" value="aabb"><br>
-        <input type="button" value="Connect" onclick="DemoRegistration()">
+        <input type="button" value="Connect" onclick="DemoRegistration()">--%>
 
 
-        <h3>Prod</h3>
-        URL:
-        <textarea id="pushProdUrl" name="pushProdUrl" rows="8" cols="80"></textarea><br />
-        Key:
-        <textarea id="key" name="Key" rows="8" cols="80"></textarea><br />
-        <input type="button" value="Connect" onclick="ConnectToProd()">
+        <%-- <h3>Prod</h3>--%>
+        <table>
+            <tr>
+                <td>URL:</td>
+                <td>
+                    <textarea id="pushProdUrl" name="pushProdUrl" rows="8" cols="80"></textarea></td>
+            </tr>
+            <tr>
+                <td>Key:</td>
+                <td>
+                    <textarea id="key" name="Key" rows="8" cols="80"></textarea></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" value="Connect" onclick="ConnectToProd()"></td>
+            </tr>
+        </table>
+
+        <br />
+
         <div>
             <ul id="messages"></ul>
         </div>
