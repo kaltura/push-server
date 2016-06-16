@@ -33,7 +33,7 @@ iv = @TOKEN_IV@
 [validation]
 validateIP = 1
 
-[demo]
-secret = @SECRET@
-port = @DEMO_CLIENT_PORT@
-domain = @DOMAIN@
+;[demo]
+;secret = @SECRET@
+;port = @DEMO_CLIENT_PORT@
+;domain = @DOMAIN@
