@@ -8,7 +8,8 @@ function KalturaMainProcess(){
 	this.start();
 };
 
-KalturaMainProcess.prototype.start = function() {
+KalturaMainProcess.prototype.start = function () {
+
 	var version = KalturaConfig.config.server.version;
 	KalturaLogger.log('\n\n_____________________________________________________________________________________________');
 	KalturaLogger.log('Push-Server ' + version + ' started');

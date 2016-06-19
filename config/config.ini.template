@@ -21,6 +21,7 @@ server = @RABBIT_MQ_SERVER@
 port = 5672
 curl_port = 15672
 timeout = 43200000
+exchange = @EXCHANGE@
 
 [socketio]
 port = @SOCKET_IO_PORT@
