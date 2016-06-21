@@ -61,7 +61,8 @@
             });
 
             socket.on('message', function (queueKey, msg) {
-                addMessage("[" + queueKey + "]: " + String.fromCharCode.apply(null, new Uint8Array(msg.data)));
+                //addMessage("[" + queueKey + "]: " + String.fromCharCode.apply(null, new Uint8Array(msg.data)));
+				addMessage("[" + queueKey + "]: " + JSON.stringify(msg));
             });
 
             socket.on('errorMsg', function (reason) {
