@@ -9,7 +9,7 @@ errorLogName = kaltura_push_error.log
 version = v1.0
 
 [queue]
-; Comma-sperated list of queue managers
+; Comma-separated list of queue managers
 providers = rabbit
 
 [rabbit]
@@ -17,12 +17,15 @@ providers = rabbit
 providerType = RabbitMQProvider
 username = @RABBIT_MQ_USERNAME@
 password = @RABBIT_MQ_PASSWORD@
-server = @RABBIT_MQ_SERVER@
-port = 5672
+;server = @RABBIT_MQ_SERVER@
+;port = 5672
+;host are comma separated urls (plus port) to rabbit nodes - e.g http://rabbit-dc1.com:5675
+hosts = http://allinone-dc2.dev.kaltura.com:5675,http://hostDummy2:5675
 curl_port = 15672
 timeout = 43200000
 exchange = @EXCHANGE@
 queueName = @QUEUE_NAME@
+connectionRetries = 20
 
 [socketio]
 port = @SOCKET_IO_PORT@
@@ -31,3 +34,7 @@ port = @SOCKET_IO_PORT@
 ;These settings should be coordinated with your local.ini file
 key = @TOKEN_KEY@
 iv = @TOKEN_IV@
+
+[cache]
+;Keep messages in cache for 24H (time in seconds)
+cacheTTL = 86400
