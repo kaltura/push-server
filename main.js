@@ -1,5 +1,5 @@
 var ConnectionManager = require('./lib/ConnectionManager');
-var DemoManager = require('./lib/DemoManager');
+const continuationLocalStorage = require('continuation-local-storage');
 
 require('./lib/utils/KalturaConfig');
 require('./lib/utils/KalturaLogger');
@@ -10,13 +10,11 @@ function KalturaMainProcess(){
 
 KalturaMainProcess.prototype.start = function () {
 
+	this.namespace = continuationLocalStorage.createNamespace('push-server');//Here just to make sure we create it only once
 	var version = KalturaConfig.config.server.version;
 	KalturaLogger.log('\n\n_____________________________________________________________________________________________');
 	KalturaLogger.log('Push-Server ' + version + ' started');
 	
-	if(KalturaConfig.config.demo) {
-		var demo = new DemoManager();
-	}
 	var conn = new ConnectionManager();
 };
 

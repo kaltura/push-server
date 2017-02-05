@@ -3,9 +3,19 @@
 	"description" : "Push server installation",
 	"version": "0.0.1",
 	"dependencies": {
+		"amqplib": ">=0.5.1",
 		"socket.io": ">=1.3.5",
 		"amqp": ">=0.2.0",
 		"node-ini": ">=1.0.0",
-		"forever": ">=0.14.1"
+		"forever": ">=0.14.1",
+		"couchbase": ">=2.2.1",
+		"memcached": ">=2.2.2",
+		"memjs": ">=0.8.5",
+		"memory-cache": ">=0.0.5",
+		"bluebird": ">=3.4.1",
+		"cls-bluebird": "^2.0.1",
+		"continuation-local-storage": "^3.2.0",
+		"node-cache": ">=4.1.1"
+
 	}
 }

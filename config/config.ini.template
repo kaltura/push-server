@@ -22,6 +22,7 @@ port = 5672
 curl_port = 15672
 timeout = 43200000
 exchange = @EXCHANGE@
+queueName = @QUEUE_NAME@
 
 [socketio]
 port = @SOCKET_IO_PORT@
@@ -30,11 +31,3 @@ port = @SOCKET_IO_PORT@
 ;These settings should be coordinated with your local.ini file
 key = @TOKEN_KEY@
 iv = @TOKEN_IV@
-
-[validation]
-validateIP = 1
-
-;[demo]
-;secret = @SECRET@
-;port = @DEMO_CLIENT_PORT@
-;domain = @DOMAIN@
