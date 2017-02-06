@@ -11,20 +11,21 @@ version = v1.0
 [queue]
 ; Comma-separated list of queue managers
 providers = rabbit
+queueName = @QUEUE_NAME@
 
 [rabbit]
 ;providerType value is the exact class name
 providerType = RabbitMQProvider
-username = @RABBIT_MQ_USERNAME@
-password = @RABBIT_MQ_PASSWORD@
 ;server = @RABBIT_MQ_SERVER@
 ;port = 5672
+;exchange = @EXCHANGE@
+;curl_port = 15672
+username = @RABBIT_MQ_USERNAME@
+password = @RABBIT_MQ_PASSWORD@
+
 ;host are comma separated urls (plus port) to rabbit nodes - e.g http://rabbit-dc1.com:5675
-hosts = http://allinone-dc2.dev.kaltura.com:5675,http://hostDummy2:5675
-curl_port = 15672
+hosts = @RABBIT_MQ_SERVER_HOSTS@
 timeout = 43200000
-exchange = @EXCHANGE@
-queueName = @QUEUE_NAME@
 connectionRetries = 20
 
 [socketio]
