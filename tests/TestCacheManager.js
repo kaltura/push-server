@@ -28,11 +28,11 @@ describe('CacheManager Test ', function () {
 
         let res;
         //should return messageObj1 and messageObj2
-        res = cacheManager.getMessages(eventMapKey1, eventKey1);
+        res = cacheManager.getMessages(eventKey1, eventMapKey1);
         assert.deepEqual(res, [messageObj1, messageObj2]);
 
         //should return messageObj3
-        res = cacheManager.getMessages(eventMapKey2, eventKey1);
+        res = cacheManager.getMessages(eventKey1, eventMapKey2);
         assert.deepEqual(res, [messageObj3]);
 
         //should return messageObj4
@@ -48,9 +48,11 @@ describe('CacheManager Test ', function () {
         assert.deepEqual(res, []);
 
         //validate cacheManager.receivedMessagesIds
-        for (let id in [messageObj1.msgId, messageObj2.msgId, messageObj3.msgId, messageObj4.msgId]) {
-            assert.equal(cacheManager.receivedMessagesIds.has(id), true);
+        let ids = [messageObj1.msgId, messageObj2.msgId, messageObj3.msgId, messageObj4.msgId];
+        for (let i = 0 ; i < ids.length; i++){
+            assert.equal(cacheManager.receivedMessagesIds.has(ids[i]), true);
         }
+
 
         //validate cacheManager.messagesTimingMap
         assert.equal(cacheManager.messagesTimingMap.length,1)
@@ -74,7 +76,7 @@ describe('CacheManager Test ', function () {
         assert.equal(cacheManager.shouldHandleMessage("12345", 1), false);
 
         //validate cacheManager.receivedMessagesIds
-        assert.equal(cacheManager.receivedMessagesIds.has(messageObj1.msgId));
+        assert.equal(cacheManager.receivedMessagesIds.has(messageObj1.msgId),true);
 
     });
 
@@ -103,7 +105,7 @@ describe('CacheManager Test ', function () {
         assert.deepEqual(res, [messageObj4]);
 
         //validate cacheManager.receivedMessagesIds
-        assert.deepEqual(cacheManager.receivedMessagesIds, [messageObj4.msgId]);
+        assert.equal(cacheManager.receivedMessagesIds.has(messageObj4.msgId), true);
 
         //validate cacheManager.messagesTimingMap
         assert.equal(cacheManager.messagesTimingMap.length,1)
@@ -171,7 +173,7 @@ describe('CacheManager Test ', function () {
         assert.equal(cacheManager.shouldHandleMessage(msgObj3.msgId), false);
         assert.equal(cacheManager.shouldHandleMessage(msgObj4.msgId), false);
 
-        assert.equal(cacheManager.messagesTimingMap.length,1)
+        assert.equal(cacheManager.messagesTimingMap.length,1);
         assert.equal(cacheManager.messagesTimingMap[0].ttl,cacheManager._roundTimeByMinute(testTime));
     });
 });
