@@ -91,7 +91,7 @@ describe('CacheManager Test ', function () {
         cacheManager.clearEventFromCache(eventKey1);
 
         //should return []
-        res = cacheManager.getMessages(eventKey1, eventMapKey1);
+        let res = cacheManager.getMessages(eventKey1, eventMapKey1);
         assert.deepEqual(res, []);
 
         //should return []
