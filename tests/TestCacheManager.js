@@ -105,6 +105,9 @@ describe('CacheManager Test ', function () {
         assert.deepEqual(res, [messageObj4]);
 
         //validate cacheManager.receivedMessagesIds
+        assert.equal(cacheManager.receivedMessagesIds.has(messageObj1.msgId), false);
+        assert.equal(cacheManager.receivedMessagesIds.has(messageObj2.msgId), false);
+        assert.equal(cacheManager.receivedMessagesIds.has(messageObj3.msgId), false);
         assert.equal(cacheManager.receivedMessagesIds.has(messageObj4.msgId), true);
 
         //validate cacheManager.messagesTimingMap
