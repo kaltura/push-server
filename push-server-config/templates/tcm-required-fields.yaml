@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Chart.Name}}-tcm-required-fields
+  labels: 
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    kaltura-type: tcm-required-fields
+    app: {{ .Chart.Name }}
+data:
+  required-fields.yaml: |
+    - path: logger/accessLogName
+      regex: .+
+    - path: logger/errorLogName
+      regex: .+
+    - path: queue/providers
+      regex: .+
+    - path: rabbit/providerType
+      regex: .+
+    - path: rabbit/username
+      regex: .+
+    - path: rabbit/password
+      regex: .+
+    - path: rabbit/server
+      regex: .+
+      validateHostname: true
+    - path: rabbit/port
+      regex: .+
+    - path: rabbit/timeout
+      regex: .+
+    - path: rabbit/exchange
+      regex: .+
+    - path: tokens/key
+      regex: .+
+    - path: tokens/iv
+      regex: .+
+    - path: validation

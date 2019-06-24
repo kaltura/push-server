@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Chart.Name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        kaltura/tcm-app: {{ .Chart.Name }}_{{.Chart.Version | replace "." "_" }}
+    spec:
+      volumes:
+        - name: required-fields
+          configMap:
+            name: {{.Chart.Name}}-config-tcm-required-fields
+        - name: logs
+          hostPath:
+            path: /var/log/kaltura/{{ .Chart.Name }}
+            type: DirectoryOrCreate
+      initContainers:
+        - name: "{{.Release.Name}}-validate-tcm"
+          image: "{{ required "Value env.repository is required!" .Values.env.repository }}/{{ required "Value env.tag is required!" .Values.env.tag }}-validate-tcm:latest"
+          volumeMounts:
+            - name: required-fields
+              mountPath: /etc/kaltura/tcm
+          env:
+            - name: TCM_APP
+              value: {{ .Chart.Name }}_{{.Chart.Version | replace "." "_" }}
+            - name: TCM_SECTION
+              value: {{ .Values.env.tag }}
+            - name: TCM_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: kaltura-environment
+                  key: tcm.url
+            - name: TCM_APP_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: kaltura-environment
+                  key: tcm.appId
+            - name: TCM_APP_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: kaltura-environment
+                  key: tcm.appSecret
+            - name: NODE_TLS_REJECT_UNAUTHORIZED
+              value: "0"
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ required "Value env.repository is required!" .Values.env.repository }}/{{ required "Value env.tag is required!" .Values.env.tag }}-{{ .Chart.Name }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: Always
+          env:
+            - name: NODE_TLS_REJECT_UNAUTHORIZED
+              value: "0"
+            - name: TCM_APP
+              value: {{ .Chart.Name }}_{{.Chart.Version | replace "." "_" }}
+            - name: TCM_SECTION
+              value: {{ .Values.env.tag }}
+            - name: TCM_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: kaltura-environment
+                  key: tcm.url
+            - name: TCM_APP_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: kaltura-environment
+                  key: tcm.appId
+            - name: TCM_APP_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: kaltura-environment
+                  key: tcm.appSecret
+          ports:
+            - name: 80
+              containerPort: 80
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /admin/alive
+          #     port: 80
+          # readinessProbe:
+          #   httpGet:
+          #     path: /admin/alive
+          #     port: 80
+          volumeMounts:
+            - mountPath: /var/log/{{ .Chart.Name }}
+              name: logs
+      strategy:
+        type: RollingUpdate
+        maxUnavailable: 1
+      nodeSelector:
+        kaltura.role: api
+        beta.kubernetes.io/os: linux

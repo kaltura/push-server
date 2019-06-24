@@ -1,0 +1,16 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-{{ .Chart.Name }}
+  labels: 
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    kaltura-type: filebeat-config
+    app: {{ .Chart.Name }}
+data:
+  {{ .Chart.Name }}.yaml: |
+    - type: log
+      fields:
+        service: 'push-access'
+      paths: 
+        - /var/log/kaltura/push-server/*/*.log
