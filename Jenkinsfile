@@ -7,8 +7,8 @@ pipeline {
         label 'Ubuntu'
     }
     environment {
-        version = sh(script: "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | sed 's/^ *//;s/ *$//'", returnStdout: true).trim()
-        app_version = sh(script: "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | sed 's/^ *//;s/ *$//' | sed 's/[.]/_/g'", returnStdout: true).trim()
+        version = sh(script: 'cat package.json | grep version | head -1 | awk -F: \'{ print $2 }\' | sed \'s/[",]//g\' | sed \'s/^ *//;s/ *$//\'', returnStdout: true).trim()
+        app_version = sh(script: 'cat package.json | grep version | head -1 | awk -F: \'{ print $2 }\' | sed \'s/[",]//g\' | sed \'s/^ *//;s/ *$//\' | sed \'s/[.]/_/g\'', , returnStdout: true).trim()
     }
 
     stages { 
