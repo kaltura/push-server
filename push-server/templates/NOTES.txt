@@ -1,0 +1,2 @@
+Thank you for installing Kaltura {{ .Chart.Name }}-{{ .Chart.AppVersion }}.
+Your release is named {{ .Release.Name }}.

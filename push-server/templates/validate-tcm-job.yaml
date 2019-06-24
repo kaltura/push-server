@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{.Release.Name}}-validate-tcm"
+  labels:
+    app.kubernetes.io/managed-by: {{.Release.Service }}
+    app.kubernetes.io/instance: {{.Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-weight: "-1"
+    helm.sh/hook-delete-policy: before-hook-creation
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: "{{.Release.Name}}-validate-tcm"
+      labels:
+        app.kubernetes.io/managed-by: {{.Release.Service }}
+        app.kubernetes.io/instance: {{.Release.Name }}
+        helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    spec:
+      volumes:
+      - name: required-fields
+        configMap:
+          name: {{.Chart.Name}}-config-tcm-required-fields
+      restartPolicy: Never
+      containers:
+      - name: "{{.Release.Name}}-validate-tcm"
+        image: "{{ required "Value env.repository is required!" .Values.env.repository }}/{{ required "Value env.tag is required!" .Values.env.tag }}-validate-tcm:latest"
+        volumeMounts:
+          - name: required-fields
+            mountPath: /etc/kaltura/tcm
+        env:
+          - name: TCM_APP
+            value: {{ .Chart.Name }}_{{.Chart.Version | replace "." "_" }}
+          - name: TCM_SECTION
+            value: {{ .Values.env.tag }}
+          - name: TCM_URL
+            valueFrom:
+              configMapKeyRef:
+                name: kaltura-environment
+                key: tcm.url
+          - name: TCM_APP_ID
+            valueFrom:
+              configMapKeyRef:
+                name: kaltura-environment
+                key: tcm.appId
+          - name: TCM_APP_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: kaltura-environment
+                key: tcm.appSecret
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: "0"
