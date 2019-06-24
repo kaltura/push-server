@@ -82,7 +82,7 @@ spec:
                   name: kaltura-environment
                   key: tcm.appSecret
           ports:
-            - name: 80
+            - name: http
               containerPort: 80
               protocol: TCP
           # livenessProbe:
